@@ -1,0 +1,206 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_TonA.headers.fc";
+#include "tact_TonA.stdlib.fc";
+#include "tact_TonA.storage.fc";
+
+;;
+;; Contract TonA functions
+;;
+
+(int, slice, int, int, int, int) $TonA$_contract_init(int $tona_event_tickets_type, slice $tona_owner_address) impure inline_ref {
+    var (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)) = (null(), null(), null(), null(), null(), null());
+    $self'tona_event_tickets_type = $tona_event_tickets_type;
+    $self'total_events = 0;
+    $self'tona_owner_address = $tona_owner_address;
+    $self'event_creation_fee = 1000000;
+    $self'royalty_numerator = 500;
+    $self'royalty_denominator = 10000;
+    return ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator);
+}
+
+((int, slice, int, int, int, int), int) $TonA$_fun_msgValue((int, slice, int, int, int, int) $self, int $value) impure inline_ref {
+    var (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)) = $self;
+    int $tonBalanceBeforeMsg = ($global_myBalance() - $value);
+    int $storageFee = (20000000 - $global_min($tonBalanceBeforeMsg, 20000000));
+    var $fresh$ret_37 = ($value - ($storageFee + 20000000));
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), $fresh$ret_37);
+}
+
+((int, slice, int, int, int, int), (cell, cell)) $TonA$_fun_getEventNftCollectionInit((int, slice, int, int, int, int) $self, int $event_id) impure inline_ref {
+    var (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)) = $self;
+    var $fresh$ret_39 = $EventNftCollection$_init_child(__tact_context_sys, $event_id, $global_myAddress());
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), $fresh$ret_39);
+}
+
+((int, slice, int, int, int, int), slice) $TonA$_fun_get_nft_collection_address((int, slice, int, int, int, int) $self, int $event_id) impure inline_ref {
+    var (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)) = $self;
+    var ($initCode'code, $initCode'data) = ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)~$TonA$_fun_getEventNftCollectionInit($event_id);
+    var $fresh$ret_38 = $global_contractAddress(($initCode'code, $initCode'data));
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), $fresh$ret_38);
+}
+
+((int, slice, int, int, int, int), (int, slice, int, int, int, int)) $TonA$_fun_state((int, slice, int, int, int, int) $self) impure inline_ref {
+    var (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)) = $self;
+    var $fresh$ret_40 = $TonAState$_constructor_tona_event_tickets_type_tona_owner_address_total_events_event_creation_fee_royalty_numerator_royalty_denominator($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator);
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), $fresh$ret_40);
+}
+
+((int, slice, int, int, int, int), int) $TonA$_fun_total_fee_for_create_event((int, slice, int, int, int, int) $self) impure inline_ref {
+    var (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)) = $self;
+    var $fresh$ret_41 = (40000000 + $self'event_creation_fee);
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), $fresh$ret_41);
+}
+
+;;
+;; Receivers of a Contract TonA
+;;
+
+(((int, slice, int, int, int, int)), ()) $TonA$_internal_binary_CreateEvent((int, slice, int, int, int, int) $self, (slice, int, cell) $msg) impure inline {
+    var ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator) = $self;
+    var ($msg'organizer_address, $msg'ticket_price, $msg'event_content) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    int $msgValue = ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)~$TonA$_fun_msgValue($ctx'value);
+    int $event_id = $self'total_events;
+    var ($nft_collection_init'code, $nft_collection_init'data) = ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)~$TonA$_fun_getEventNftCollectionInit($event_id);
+    $self'total_events = ($self'total_events + 1);
+    if (($self'event_creation_fee > 0)) {
+        throw_unless(20106, ($msgValue >= $self'event_creation_fee));
+        $msgValue = ($msgValue - $self'event_creation_fee);
+        $global_send($SendParameters$_constructor_to_value_bounce_mode_body($self'tona_owner_address, $self'event_creation_fee, false, 1, $Builder$_fun_endCell($global_beginCell())));
+    }
+    $global_send($SendParameters$_constructor_to_value_bounce_mode_body_code_data($global_contractAddress(($nft_collection_init'code, $nft_collection_init'data)), $msgValue, false, 2, $CreateEventNftCollection$_store_cell($CreateEventNftCollection$_constructor_event_id_organizer_address_collection_content_ticket_price_royalty_numerator_royalty_denominator($event_id, $msg'organizer_address, $msg'event_content, $msg'ticket_price, $self'royalty_numerator, $self'royalty_denominator)), $nft_collection_init'code, $nft_collection_init'data));
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), ());
+}
+
+(((int, slice, int, int, int, int)), ()) $TonA$_internal_binary_SetRoyaltyNumerator((int, slice, int, int, int, int) $self, (int) $msg) impure inline {
+    var ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator) = $self;
+    var ($msg'royalty_numerator) = $msg;
+    throw_unless(40056, ( __tact_slice_eq_bits($self'tona_owner_address, __tact_context_get_sender()) ));
+    int $royalty_numerator = $msg'royalty_numerator;
+    throw_unless(62134, ($royalty_numerator < $self'royalty_denominator));
+    $self'royalty_numerator = $royalty_numerator;
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), ());
+}
+
+(((int, slice, int, int, int, int)), ()) $TonA$_internal_binary_TransferOwnership((int, slice, int, int, int, int) $self, (slice) $msg) impure inline {
+    var ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator) = $self;
+    var ($msg'new_tona_owner_address) = $msg;
+    throw_unless(40056, ( __tact_slice_eq_bits($self'tona_owner_address, __tact_context_get_sender()) ));
+    $self'tona_owner_address = $msg'new_tona_owner_address;
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), ());
+}
+
+(((int, slice, int, int, int, int)), ()) $TonA$_internal_binary_Deploy((int, slice, int, int, int, int) $self, (int) $deploy) impure inline {
+    var ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator)~$TonA$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'tona_event_tickets_type, $self'tona_owner_address, $self'total_events, $self'event_creation_fee, $self'royalty_numerator, $self'royalty_denominator), ());
+}
+
+;;
+;; Get methods of a Contract TonA
+;;
+
+_ %get_nft_collection_address(int $event_id) method_id(116907) {
+    int $event_id = $event_id;
+    var self = $TonA$_contract_load();
+    var res = self~$TonA$_fun_get_nft_collection_address($event_id);
+    return res;
+}
+
+_ %getEventNftCollectionInit(int $event_id) method_id(69087) {
+    int $event_id = $event_id;
+    var self = $TonA$_contract_load();
+    var res = self~$TonA$_fun_getEventNftCollectionInit($event_id);
+    return $StateInit$_to_external(res);
+}
+
+_ %state() method_id(77589) {
+    var self = $TonA$_contract_load();
+    var res = self~$TonA$_fun_state();
+    return $TonAState$_to_external(res);
+}
+
+_ %total_fee_for_create_event() method_id(110466) {
+    var self = $TonA$_contract_load();
+    var res = self~$TonA$_fun_total_fee_for_create_event();
+    return res;
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract TonA
+;;
+
+((int, slice, int, int, int, int), int) $TonA$_contract_router_internal((int, slice, int, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive CreateEvent message
+    if (op == 742344259) {
+        var msg = in_msg~$CreateEvent$_load();
+        self~$TonA$_internal_binary_CreateEvent(msg);
+        return (self, true);
+    }
+    
+    ;; Receive SetRoyaltyNumerator message
+    if (op == 1290792962) {
+        var msg = in_msg~$SetRoyaltyNumerator$_load();
+        self~$TonA$_internal_binary_SetRoyaltyNumerator(msg);
+        return (self, true);
+    }
+    
+    ;; Receive TransferOwnership message
+    if (op == 2111977325) {
+        var msg = in_msg~$TransferOwnership$_load();
+        self~$TonA$_internal_binary_TransferOwnership(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$TonA$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $TonA$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$TonA$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $TonA$_contract_store(self);
+}

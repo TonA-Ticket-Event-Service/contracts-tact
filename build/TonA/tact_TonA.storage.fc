@@ -1,0 +1,229 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+(cell, cell) $StateInit$_to_external(((cell, cell)) v) inline {
+    var (v'code, v'data) = v; 
+    return (v'code, v'data);
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice $to, int $value, int $bounce, int $mode, cell $body, cell $code, cell $data) inline {
+    return ($bounce, $to, $value, $mode, $body, $code, $data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int $bounce, slice $to, int $value, int $mode, cell $body, cell $code, cell $data) inline {
+    return ($bounce, $to, $value, $mode, $body, $code, $data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body(slice $to, int $value, int $bounce, int $mode, cell $body) inline {
+    return ($bounce, $to, $value, $mode, $body, null(), null());
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int $queryId) inline {
+    return ($queryId);
+}
+
+;;
+;; Type: CreateEventNftCollection
+;; Header: 0xc7dad7d1
+;; TLB: create_event_nft_collection#c7dad7d1 event_id:uint64 organizer_address:address collection_content:^cell ticket_price:coins royalty_numerator:uint16 royalty_denominator:uint16 = CreateEventNftCollection
+;;
+
+builder $CreateEventNftCollection$_store(builder build_0, (int, slice, cell, int, int, int) v) inline_ref {
+    var (v'event_id, v'organizer_address, v'collection_content, v'ticket_price, v'royalty_numerator, v'royalty_denominator) = v;
+    build_0 = store_uint(build_0, 3353008081, 32);
+    build_0 = build_0.store_uint(v'event_id, 64);
+    build_0 = __tact_store_address(build_0, v'organizer_address);
+    build_0 = build_0.store_ref(v'collection_content);
+    build_0 = build_0.store_coins(v'ticket_price);
+    build_0 = build_0.store_uint(v'royalty_numerator, 16);
+    build_0 = build_0.store_uint(v'royalty_denominator, 16);
+    return build_0;
+}
+
+cell $CreateEventNftCollection$_store_cell((int, slice, cell, int, int, int) v) inline {
+    return $CreateEventNftCollection$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice, cell, int, int, int)) $CreateEventNftCollection$_constructor_event_id_organizer_address_collection_content_ticket_price_royalty_numerator_royalty_denominator(int $event_id, slice $organizer_address, cell $collection_content, int $ticket_price, int $royalty_numerator, int $royalty_denominator) inline {
+    return ($event_id, $organizer_address, $collection_content, $ticket_price, $royalty_numerator, $royalty_denominator);
+}
+
+;;
+;; Type: CreateEvent
+;; Header: 0x2c3f4643
+;; TLB: create_event#2c3f4643 organizer_address:address ticket_price:coins event_content:^cell = CreateEvent
+;;
+
+(slice, ((slice, int, cell))) $CreateEvent$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 742344259);
+    var v'organizer_address = sc_0~__tact_load_address();
+    var v'ticket_price = sc_0~load_coins();
+    var v'event_content = sc_0~load_ref();
+    return (sc_0, (v'organizer_address, v'ticket_price, v'event_content));
+}
+
+;;
+;; Type: SetRoyaltyNumerator
+;; Header: 0x4ceff002
+;; TLB: set_royalty_numerator#4ceff002 royalty_numerator:uint16 = SetRoyaltyNumerator
+;;
+
+(slice, ((int))) $SetRoyaltyNumerator$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1290792962);
+    var v'royalty_numerator = sc_0~load_uint(16);
+    return (sc_0, (v'royalty_numerator));
+}
+
+;;
+;; Type: TransferOwnership
+;; Header: 0x7de2376d
+;; TLB: transfer_ownership#7de2376d new_tona_owner_address:address = TransferOwnership
+;;
+
+(slice, ((slice))) $TransferOwnership$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2111977325);
+    var v'new_tona_owner_address = sc_0~__tact_load_address();
+    return (sc_0, (v'new_tona_owner_address));
+}
+
+;;
+;; Type: TonAState
+;; TLB: _ tona_event_tickets_type:uint64 tona_owner_address:address total_events:uint64 event_creation_fee:coins royalty_numerator:uint16 royalty_denominator:uint16 = TonAState
+;;
+
+(int, slice, int, int, int, int) $TonAState$_to_external(((int, slice, int, int, int, int)) v) inline {
+    var (v'tona_event_tickets_type, v'tona_owner_address, v'total_events, v'event_creation_fee, v'royalty_numerator, v'royalty_denominator) = v; 
+    return (v'tona_event_tickets_type, v'tona_owner_address, v'total_events, v'event_creation_fee, v'royalty_numerator, v'royalty_denominator);
+}
+
+((int, slice, int, int, int, int)) $TonAState$_constructor_tona_event_tickets_type_tona_owner_address_total_events_event_creation_fee_royalty_numerator_royalty_denominator(int $tona_event_tickets_type, slice $tona_owner_address, int $total_events, int $event_creation_fee, int $royalty_numerator, int $royalty_denominator) inline {
+    return ($tona_event_tickets_type, $tona_owner_address, $total_events, $event_creation_fee, $royalty_numerator, $royalty_denominator);
+}
+
+;;
+;; Type: EventNftCollection
+;;
+
+builder $EventNftCollection$init$_store(builder build_0, (int, slice) v) inline {
+    var (v'event_id, v'tona_address) = v;
+    build_0 = build_0.store_int(v'event_id, 257);
+    build_0 = __tact_store_address(build_0, v'tona_address);
+    return build_0;
+}
+
+(cell, cell) $EventNftCollection$_init_child(cell sys', int $event_id, slice $tona_address) inline_ref {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: EventNftCollection
+    cell mine = __tact_dict_get_code(source, 18620);
+    contracts = __tact_dict_set_code(contracts, 18620, mine);
+    
+    ;; Contract Code: TicketNftItem
+    cell code_36176 = __tact_dict_get_code(source, 36176);
+    contracts = __tact_dict_set_code(contracts, 36176, code_36176);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = $EventNftCollection$init$_store(b, ($event_id, $tona_address));
+    return (mine, b.end_cell());
+}
+
+;;
+;; Type: TonA
+;;
+
+builder $TonA$_store(builder build_0, (int, slice, int, int, int, int) v) inline {
+    var (v'tona_event_tickets_type, v'tona_owner_address, v'total_events, v'event_creation_fee, v'royalty_numerator, v'royalty_denominator) = v;
+    build_0 = build_0.store_uint(v'tona_event_tickets_type, 64);
+    build_0 = __tact_store_address(build_0, v'tona_owner_address);
+    build_0 = build_0.store_uint(v'total_events, 64);
+    build_0 = build_0.store_coins(v'event_creation_fee);
+    build_0 = build_0.store_uint(v'royalty_numerator, 16);
+    build_0 = build_0.store_uint(v'royalty_denominator, 16);
+    return build_0;
+}
+
+(slice, ((int, slice, int, int, int, int))) $TonA$_load(slice sc_0) inline {
+    var v'tona_event_tickets_type = sc_0~load_uint(64);
+    var v'tona_owner_address = sc_0~__tact_load_address();
+    var v'total_events = sc_0~load_uint(64);
+    var v'event_creation_fee = sc_0~load_coins();
+    var v'royalty_numerator = sc_0~load_uint(16);
+    var v'royalty_denominator = sc_0~load_uint(16);
+    return (sc_0, (v'tona_event_tickets_type, v'tona_owner_address, v'total_events, v'event_creation_fee, v'royalty_numerator, v'royalty_denominator));
+}
+
+(slice, ((int, slice))) $TonA$init$_load(slice sc_0) inline {
+    var v'tona_event_tickets_type = sc_0~load_int(257);
+    var v'tona_owner_address = sc_0~__tact_load_address();
+    return (sc_0, (v'tona_event_tickets_type, v'tona_owner_address));
+}
+
+(int, slice, int, int, int, int) $TonA$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$TonA$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (int $tona_event_tickets_type, slice $tona_owner_address) = $sc~$TonA$init$_load();
+        $sc.end_parse();
+        return $TonA$_contract_init($tona_event_tickets_type, $tona_owner_address);
+    }
+}
+
+() $TonA$_contract_store((int, slice, int, int, int, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $TonA$_store(b, v);
+    set_data(b.end_cell());
+}

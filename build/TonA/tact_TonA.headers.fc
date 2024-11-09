@@ -1,0 +1,142 @@
+;;
+;; Header files for TonA
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) impure inline;
+
+;; __tact_load_address
+(slice, slice) __tact_load_address(slice cs) inline;
+
+;; __tact_store_address
+builder __tact_store_address(builder b, slice address) inline;
+
+;; __tact_create_address
+slice __tact_create_address(int chain, int hash) inline;
+
+;; __tact_compute_contract_address
+slice __tact_compute_contract_address(int chain, cell code, cell data) inline;
+
+;; __tact_not_null
+forall X -> X __tact_not_null(X x) impure inline;
+
+;; __tact_context_get
+(int, slice, int, slice) __tact_context_get() inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_store_bool
+builder __tact_store_bool(builder b, int v) inline;
+
+;; __tact_slice_eq_bits
+int __tact_slice_eq_bits(slice a, slice b) inline;
+
+;; __tact_dict_set_code
+cell __tact_dict_set_code(cell dict, int id, cell code) inline;
+
+;; __tact_dict_get_code
+cell __tact_dict_get_code(cell dict, int id) inline;
+
+;; $Deploy$_load
+(slice, ((int))) $Deploy$_load(slice sc_0) inline;
+
+;; $DeployOk$_store
+builder $DeployOk$_store(builder build_0, (int) v) inline;
+
+;; $DeployOk$_store_cell
+cell $DeployOk$_store_cell((int) v) inline;
+
+;; $CreateEventNftCollection$_store
+builder $CreateEventNftCollection$_store(builder build_0, (int, slice, cell, int, int, int) v) inline_ref;
+
+;; $CreateEventNftCollection$_store_cell
+cell $CreateEventNftCollection$_store_cell((int, slice, cell, int, int, int) v) inline;
+
+;; $CreateEvent$_load
+(slice, ((slice, int, cell))) $CreateEvent$_load(slice sc_0) inline;
+
+;; $SetRoyaltyNumerator$_load
+(slice, ((int))) $SetRoyaltyNumerator$_load(slice sc_0) inline;
+
+;; $TransferOwnership$_load
+(slice, ((slice))) $TransferOwnership$_load(slice sc_0) inline;
+
+;; $TonA$_store
+builder $TonA$_store(builder build_0, (int, slice, int, int, int, int) v) inline;
+
+;; $TonA$_load
+(slice, ((int, slice, int, int, int, int))) $TonA$_load(slice sc_0) inline;
+
+;; $StateInit$_not_null
+((cell, cell)) $StateInit$_not_null(tuple v) inline;
+
+;; $StateInit$_to_external
+(cell, cell) $StateInit$_to_external(((cell, cell)) v) inline;
+
+;; $TonAState$_to_external
+(int, slice, int, int, int, int) $TonAState$_to_external(((int, slice, int, int, int, int)) v) inline;
+
+;; $EventNftCollection$init$_store
+builder $EventNftCollection$init$_store(builder build_0, (int, slice) v) inline;
+
+;; $TonA$init$_load
+(slice, ((int, slice))) $TonA$init$_load(slice sc_0) inline;
+
+;; $TonA$_contract_init
+(int, slice, int, int, int, int) $TonA$_contract_init(int $tona_event_tickets_type, slice $tona_owner_address) impure inline_ref;
+
+;; $TonA$_contract_load
+(int, slice, int, int, int, int) $TonA$_contract_load() impure inline_ref;
+
+;; $TonA$_contract_store
+() $TonA$_contract_store((int, slice, int, int, int, int) v) impure inline;
+
+;; $global_contractAddress
+slice $global_contractAddress((cell, cell) $s) impure inline;
+
+;; $global_send
+int $global_send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref;
+
+;; $EventNftCollection$_init_child
+(cell, cell) $EventNftCollection$_init_child(cell sys', int $event_id, slice $tona_address) inline_ref;
+
+;; $SendParameters$_constructor_to_value_bounce_mode_body_code_data
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice $to, int $value, int $bounce, int $mode, cell $body, cell $code, cell $data) inline;
+
+;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int $bounce, slice $to, int $value, int $mode, cell $body, cell $code, cell $data) inline;
+
+;; $TonA$_fun_msgValue
+((int, slice, int, int, int, int), int) $TonA$_fun_msgValue((int, slice, int, int, int, int) $self, int $value) impure inline_ref;
+
+;; $TonA$_fun_getEventNftCollectionInit
+((int, slice, int, int, int, int), (cell, cell)) $TonA$_fun_getEventNftCollectionInit((int, slice, int, int, int, int) $self, int $event_id) impure inline_ref;
+
+;; $TonA$_fun_get_nft_collection_address
+((int, slice, int, int, int, int), slice) $TonA$_fun_get_nft_collection_address((int, slice, int, int, int, int) $self, int $event_id) impure inline_ref;
+
+;; $TonAState$_constructor_tona_event_tickets_type_tona_owner_address_total_events_event_creation_fee_royalty_numerator_royalty_denominator
+((int, slice, int, int, int, int)) $TonAState$_constructor_tona_event_tickets_type_tona_owner_address_total_events_event_creation_fee_royalty_numerator_royalty_denominator(int $tona_event_tickets_type, slice $tona_owner_address, int $total_events, int $event_creation_fee, int $royalty_numerator, int $royalty_denominator) inline;
+
+;; $TonA$_fun_state
+((int, slice, int, int, int, int), (int, slice, int, int, int, int)) $TonA$_fun_state((int, slice, int, int, int, int) $self) impure inline_ref;
+
+;; $TonA$_fun_total_fee_for_create_event
+((int, slice, int, int, int, int), int) $TonA$_fun_total_fee_for_create_event((int, slice, int, int, int, int) $self) impure inline_ref;
+
+;; $TonA$_fun_forward
+((int, slice, int, int, int, int), ()) $TonA$_fun_forward((int, slice, int, int, int, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
+
+;; $TonA$_fun_notify
+((int, slice, int, int, int, int), ()) $TonA$_fun_notify((int, slice, int, int, int, int) $self, cell $body) impure inline;
+
+;; $SendParameters$_constructor_to_value_bounce_mode_body
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body(slice $to, int $value, int $bounce, int $mode, cell $body) inline;
+
+;; $CreateEventNftCollection$_constructor_event_id_organizer_address_collection_content_ticket_price_royalty_numerator_royalty_denominator
+((int, slice, cell, int, int, int)) $CreateEventNftCollection$_constructor_event_id_organizer_address_collection_content_ticket_price_royalty_numerator_royalty_denominator(int $event_id, slice $organizer_address, cell $collection_content, int $ticket_price, int $royalty_numerator, int $royalty_denominator) inline;
+
+;; $DeployOk$_constructor_queryId
+((int)) $DeployOk$_constructor_queryId(int $queryId) inline;

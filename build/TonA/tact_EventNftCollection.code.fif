@@ -1,0 +1,1155 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
+  DECLPROC __tact_load_address_opt
+  DECLPROC __tact_store_address
+  DECLPROC __tact_store_address_opt
+  DECLPROC __tact_create_address
+  DECLPROC __tact_compute_contract_address
+  DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
+  DECLPROC __tact_context_get_sender
+  DECLPROC __tact_store_bool
+  DECLPROC __tact_slice_eq_bits
+  DECLPROC __tact_slice_eq_bits_nullable_one
+  DECLPROC __tact_dict_set_code
+  DECLPROC __tact_dict_get_code
+  DECLPROC __tact_string_builder_start
+  DECLPROC __tact_string_builder_start_string
+  DECLPROC __tact_string_builder_end
+  DECLPROC __tact_string_builder_append
+  DECLPROC $CreateEventNftCollection$_load
+  DECLPROC $SetTicketPrice$_load
+  DECLPROC $Mint$_load
+  DECLPROC $LogEventMintRecord$_store
+  DECLPROC $LogEventMintRecord$_store_cell
+  DECLPROC $GetRoyaltyParams$_load
+  DECLPROC $ReportRoyaltyParams$_store
+  DECLPROC $ReportRoyaltyParams$_store_cell
+  DECLPROC $RoyaltyParams$_store
+  DECLPROC $RoyaltyParams$_load
+  DECLPROC $Transfer$_store
+  DECLPROC $Transfer$_store_cell
+  DECLPROC $RoyaltyParams$_not_null
+  DECLPROC $EventNftCollection$_store
+  DECLPROC $RoyaltyParams$_as_optional
+  DECLPROC $EventNftCollection$_load
+  DECLPROC $StateInit$_to_external
+  DECLPROC $CollectionData$_to_external
+  DECLPROC $RoyaltyParams$_get_numerator
+  DECLPROC $RoyaltyParams$_get_denominator
+  DECLPROC $RoyaltyParams$_to_external
+  DECLPROC $EventNftCollection$init$_load
+  DECLPROC $TicketNftItem$init$_store
+  DECLPROC $EventNftCollection$_contract_init
+  DECLPROC $EventNftCollection$_contract_load
+  DECLPROC $EventNftCollection$_contract_store
+  DECLPROC $global_emptyCell
+  DECLPROC $Cell$_fun_asSlice
+  DECLPROC $global_emptySlice
+  DECLPROC $global_contractAddress
+  DECLPROC $global_send
+  DECLPROC $global_emit
+  DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
+  DECLPROC $Transfer$_constructor_query_id_new_owner_response_destination_custom_payload_forward_amount_forward_payload
+  DECLPROC $TicketNftItem$_init_child
+  DECLPROC $EventNftCollection$_fun_getTicketNftItemInit
+  DECLPROC $EventNftCollection$_fun_mint
+  DECLPROC $EventNftCollection$_fun_msgValue
+  DECLPROC $CollectionData$_constructor_next_item_index_collection_content_owner_address
+  DECLPROC $EventNftCollection$_fun_get_collection_data
+  DECLPROC $EventNftCollection$_fun_get_nft_address_by_index
+  DECLPROC $EventNftCollection$_fun_get_nft_content
+  DECLPROC $EventNftCollection$_fun_royalty_params
+  DECLPROC $EventNftCollection$_fun_mint_fee
+  DECLPROC $RoyaltyParams$_constructor_numerator_denominator_destination
+  DECLPROC $SendParameters$_constructor_to_value_mode_body
+  DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body
+  DECLPROC $LogEventMintRecord$_constructor_minter_item_id_generate_number
+  DECLPROC $SendParameters$_constructor_to_value_mode_bounce_body
+  DECLPROC $ReportRoyaltyParams$_constructor_query_id_numerator_denominator_destination
+  DECLPROC $EventNftCollection$_internal_binary_CreateEventNftCollection
+  DECLPROC $EventNftCollection$_internal_binary_SetTicketPrice
+  DECLPROC $EventNftCollection$_internal_binary_Mint
+  DECLPROC $EventNftCollection$_internal_binary_GetRoyaltyParams
+  102491 DECLMETHOD %get_collection_data
+  92067 DECLMETHOD %get_nft_address_by_index
+  127060 DECLMETHOD %getTicketNftItemInit
+  68445 DECLMETHOD %get_nft_content
+  85719 DECLMETHOD %royalty_params
+  84211 DECLMETHOD %mint_fee
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $EventNftCollection$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_load_address_opt PROCINLINE:<{
+    DUP
+    2 PLDU
+    0 NEQINT
+    IF:<{
+      LDMSGADDR
+      SWAP
+      __tact_verify_address INLINECALLDICT
+    }>ELSE<{
+      2 PUSHINT
+      SDSKIPFIRST
+      PUSHNULL
+    }>
+  }>
+  __tact_store_address PROCINLINE:<{
+    __tact_verify_address INLINECALLDICT
+    STSLICER
+  }>
+  __tact_store_address_opt PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      0 PUSHINT
+      SWAP
+      2 STU
+    }>ELSE<{
+      __tact_store_address INLINECALLDICT
+    }>
+  }>
+  __tact_create_address PROCINLINE:<{
+    NEWC
+    2 PUSHINT
+    SWAP
+    2 STU
+    0 PUSHINT
+    SWAP
+    1 STU
+    s1 s2 XCHG
+    8 STI
+    256 STU
+    ENDC
+    CTOS
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_compute_contract_address PROCINLINE:<{
+    NEWC
+    0 PUSHINT
+    SWAP
+    2 STU
+    3 PUSHINT
+    SWAP
+    2 STU
+    0 PUSHINT
+    SWAP
+    1 STU
+    s1 s2 XCHG
+    STREF
+    STREF
+    ENDC
+    HASHCU
+    __tact_create_address INLINECALLDICT
+  }>
+  __tact_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_context_get_sender PROCINLINE:<{
+    __tact_context_sender GETGLOB
+  }>
+  __tact_store_bool PROCINLINE:<{
+    SWAP
+    1 STI
+  }>
+  __tact_slice_eq_bits PROCINLINE:<{
+    SDEQ
+  }>
+  __tact_slice_eq_bits_nullable_one PROCINLINE:<{
+    OVER
+    ISNULL
+    IF:<{
+      2DROP
+      FALSE
+    }>ELSE<{
+      SDEQ
+    }>
+  }>
+  __tact_dict_set_code PROCINLINE:<{
+    s0 s2 XCHG
+    16 PUSHINT
+    DICTUSETREF
+  }>
+  __tact_dict_get_code PROCINLINE:<{
+    SWAP
+    16 PUSHINT
+    DICTUGETREF
+    NULLSWAPIFNOT
+    135 THROWIFNOT
+  }>
+  __tact_string_builder_start PROCINLINE:<{
+    NIL
+    SWAP
+    TPUSH
+    PUSHNULL
+    TPUSH
+  }>
+  __tact_string_builder_start_string PROCINLINE:<{
+    NEWC
+    __tact_string_builder_start INLINECALLDICT
+  }>
+  __tact_string_builder_end PROCINLINE:<{
+    UNCONS
+    SWAP
+    ENDC
+    WHILE:<{
+      OVER
+      ISNULL
+      NOT
+    }>DO<{
+      SWAP
+      UNCONS
+      -ROT
+      STREF
+      ENDC
+    }>
+    NIP
+  }>
+  __tact_string_builder_append PROCREF:<{
+    DUP
+    SREFS
+    OVER
+    SBITS
+    WHILE:<{
+      DUP
+      0 GTINT
+      s2 PUSH
+      0 GTINT
+      OR
+    }>DO<{
+      s0 s3 XCHG
+      UNCONS
+      127 PUSHINT
+      s2 PUSH
+      BBITS
+      3 RSHIFT#
+      SUB
+      s0 s5 XCHG
+      3 RSHIFT#
+      s5 s5 XCPU
+      MIN
+      DUP
+      0 GTINT
+      IF:<{
+        DUP
+        3 LSHIFT#
+        s1 s5 XCHG
+        LDSLICEX
+        s3 s3 XCHG2
+        STSLICER
+        s0 s1 s4 XCHG3
+      }>
+      -ROT
+      CONS
+      s4 s1 PUSH2
+      SUB
+      0 GTINT
+      IF:<{
+        NEWC
+        SWAP
+        CONS
+        s4 s4 XCHG2
+        SUB
+        3 LSHIFT#
+      }>ELSE<{
+        NIP
+        s3 POP
+        0 GTINT
+        IF:<{
+          LDREF
+          DROP
+          CTOS
+          DUP
+          SREFS
+          OVER
+          SBITS
+        }>ELSE<{
+          0 PUSHINT
+          DUP
+        }>
+      }>
+    }>
+    3 BLKDROP
+  }>
+  $CreateEventNftCollection$_load PROCREF:<{
+    32 LDU
+    SWAP
+    3353008081 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    __tact_load_address INLINECALLDICT
+    SWAP
+    LDREF
+    LDVARUINT16
+    16 LDU
+    16 LDU
+    6 -ROLL
+  }>
+  $SetTicketPrice$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    1580888975 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    LDVARUINT16
+    SWAP
+  }>
+  $Mint$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    3118798242 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+    SWAP
+    1 LDI
+    SWAP
+    IF:<{
+      LDREF
+    }>ELSE<{
+      PUSHNULL
+      SWAP
+    }>
+    -ROT
+  }>
+  $LogEventMintRecord$_store PROCINLINE:<{
+    2743565669 PUSHINT
+    s0 s4 XCHG2
+    32 STU
+    ROT
+    __tact_store_address INLINECALLDICT
+    257 PUSHINT
+    STIX
+    257 PUSHINT
+    STIX
+  }>
+  $LogEventMintRecord$_store_cell PROCINLINE:<{
+    NEWC
+    3 -ROLL
+    $LogEventMintRecord$_store INLINECALLDICT
+    ENDC
+  }>
+  $GetRoyaltyParams$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    1765620048 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $ReportRoyaltyParams$_store PROCINLINE:<{
+    2831876269 PUSHINT
+    s0 s5 XCHG2
+    32 STU
+    s1 s3 XCHG
+    64 STU
+    16 STU
+    16 STU
+    SWAP
+    __tact_store_address INLINECALLDICT
+  }>
+  $ReportRoyaltyParams$_store_cell PROCINLINE:<{
+    NEWC
+    4 -ROLL
+    $ReportRoyaltyParams$_store INLINECALLDICT
+    ENDC
+  }>
+  $RoyaltyParams$_store PROCINLINE:<{
+    s2 s3 XCHG2
+    257 PUSHINT
+    STIX
+    257 PUSHINT
+    STIX
+    SWAP
+    __tact_store_address INLINECALLDICT
+  }>
+  $RoyaltyParams$_load PROCINLINE:<{
+    257 PUSHINT
+    LDIX
+    257 PUSHINT
+    LDIX
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
+  }>
+  $Transfer$_store PROCREF:<{
+    1607220500 PUSHINT
+    s0 s7 XCHG2
+    32 STU
+    s1 s5 XCHG
+    64 STU
+    s0 s3 XCHG2
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address_opt INLINECALLDICT
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      SWAP
+      1 STI
+      STREF
+    }>ELSE<{
+      FALSE
+      s2 POP
+      1 STI
+    }>
+    SWAP
+    STVARUINT16
+    SWAP
+    STSLICER
+  }>
+  $Transfer$_store_cell PROCINLINE:<{
+    NEWC
+    6 -ROLL
+    $Transfer$_store INLINECALLDICT
+    ENDC
+  }>
+  $RoyaltyParams$_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+        3 UNTUPLE
+  }>
+  $EventNftCollection$_store PROCINLINE:<{
+    s6 s7 XCHG2
+    32 STU
+    s1 s4 XCHG
+    256 STU
+    ROT
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address_opt INLINECALLDICT
+    NEWC
+    s2 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      SWAP
+      1 STI
+      s1 s2 XCHG
+      257 PUSHINT
+      STIX
+    }>ELSE<{
+      s2 POP
+      FALSE
+      ROT
+      1 STI
+    }>
+    s2 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      SWAP
+      1 STI
+      s1 s2 XCHG
+      STREF
+    }>ELSE<{
+      s2 POP
+      FALSE
+      ROT
+      1 STI
+    }>
+    NEWC
+    s3 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      SWAP
+      1 STI
+      s0 s3 XCHG
+      $RoyaltyParams$_not_null INLINECALLDICT
+      s3 s5 XCHG
+      $RoyaltyParams$_store INLINECALLDICT
+    }>ELSE<{
+      s3 POP
+      FALSE
+      s0 s3 XCHG2
+      1 STI
+    }>
+    ENDC
+    ROT
+    STREF
+    ENDC
+    SWAP
+    STREF
+  }>
+  $RoyaltyParams$_as_optional PROCINLINE:<{
+        3 TUPLE
+  }>
+  $EventNftCollection$_load PROCINLINE:<{
+    32 LDU
+    256 LDU
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address_opt INLINECALLDICT
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    1 LDI
+    SWAP
+    IF:<{
+      257 PUSHINT
+      LDIX
+    }>ELSE<{
+      PUSHNULL
+      SWAP
+    }>
+    1 LDI
+    SWAP
+    IF:<{
+      LDREF
+    }>ELSE<{
+      PUSHNULL
+      SWAP
+    }>
+    LDREF
+    DROP
+    CTOS
+    1 LDI
+    SWAP
+    IF:<{
+      $RoyaltyParams$_load INLINECALLDICT
+      1 3 BLKDROP2
+      $RoyaltyParams$_as_optional INLINECALLDICT
+    }>ELSE<{
+      DROP
+      PUSHNULL
+    }>
+    s3 s7 XCHG
+    s3 s6 XCHG
+    s3 s5 XCHG
+    s3 s4 XCHG
+  }>
+  $StateInit$_to_external PROCINLINE:<{
+  }>
+  $CollectionData$_to_external PROCINLINE:<{
+  }>
+  $RoyaltyParams$_get_numerator PROCINLINE:<{
+    2DROP
+  }>
+  $RoyaltyParams$_get_denominator PROCINLINE:<{
+    DROP
+    NIP
+  }>
+  $RoyaltyParams$_to_external PROCINLINE:<{
+  }>
+  $EventNftCollection$init$_load PROCINLINE:<{
+    257 PUSHINT
+    LDIX
+    __tact_load_address INLINECALLDICT
+    s1 s2 XCHG
+  }>
+  $TicketNftItem$init$_store PROCINLINE:<{
+    -ROT
+    __tact_store_address INLINECALLDICT
+    257 PUSHINT
+    STIX
+  }>
+  $EventNftCollection$_contract_init PROCREF:<{
+    0 PUSHINT
+    -ROT
+    PUSHNULL
+    PUSHNULL
+    PUSHNULL
+    PUSHNULL
+  }>
+  $EventNftCollection$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    SWAP
+    IFJMP:<{
+      $EventNftCollection$_load INLINECALLDICT
+      1 7 BLKDROP2
+    }>
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $EventNftCollection$init$_load INLINECALLDICT
+    s0 s2 XCHG
+    ENDS
+    SWAP
+    $EventNftCollection$_contract_init INLINECALLDICT
+  }>
+  $EventNftCollection$_contract_store PROCINLINE:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    7 -ROLL
+    $EventNftCollection$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $global_emptyCell PROCINLINE:<{
+        NEWC
+        ENDC
+  }>
+  $Cell$_fun_asSlice PROCINLINE:<{
+        CTOS
+  }>
+  $global_emptySlice PROCINLINE:<{
+    $global_emptyCell INLINECALLDICT
+    $Cell$_fun_asSlice INLINECALLDICT
+  }>
+  $global_contractAddress PROCINLINE:<{
+    0 PUSHINT
+    -ROT
+    __tact_compute_contract_address INLINECALLDICT
+  }>
+  $global_send PROCREF:<{
+        NEWC
+    1 PUSHINT
+    SWAP
+    2 STI
+    s0 s7 XCHG2
+    __tact_store_bool INLINECALLDICT
+    0 PUSHINT
+    SWAP
+    3 STI
+    s0 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+        STVARUINT16
+    0 PUSHINT
+    SWAP
+    105 STI
+    s3 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      s4 PUSH
+      ISNULL
+      NOT
+    }>
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+          NEWC
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+            STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+            STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+          ENDC
+      ROT
+          STREF
+    }>ELSE<{
+      s3 POP
+      s3 POP
+      SWAP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      SWAP
+      __tact_not_null INLINECALLDICT
+      SWAP
+          STREF
+    }>ELSE<{
+      NIP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+        ENDC
+    SWAP
+        SENDMSG
+  }>
+  $global_emit PROCINLINE:<{
+        NEWC
+    15211807202738752817960438464513 PUSHINT
+    SWAP
+    104 STU
+        STREF
+        ENDC
+    0 PUSHINT
+        SENDRAWMSG
+  }>
+  $SendParameters$_constructor_to_value_bounce_mode_body_code_data PROCINLINE:<{
+    s4 s6 XCHG
+    s4 s5 XCHG
+  }>
+  $Transfer$_constructor_query_id_new_owner_response_destination_custom_payload_forward_amount_forward_payload PROCINLINE:<{
+  }>
+  $TicketNftItem$_init_child PROCREF:<{
+    s0 s2 XCHG
+    CTOS
+    LDDICT
+    DROP
+    NEWDICT
+    SWAP
+    36176 PUSHINT
+    __tact_dict_get_code INLINECALLDICT
+    SWAP
+    36176 PUSHINT
+    s2 PUSH
+    __tact_dict_set_code INLINECALLDICT
+    NEWC
+    SWAP
+    NEWC
+    STDICT
+    ENDC
+    SWAP
+    STREF
+    FALSE
+    SWAP
+    1 STI
+    s0 s0 s3 XCHG3
+    $TicketNftItem$init$_store INLINECALLDICT
+    ENDC
+  }>
+  $EventNftCollection$_fun_getTicketNftItemInit PROCREF:<{
+    __tact_context_sys GETGLOB
+        MYADDR
+    ROT
+    $TicketNftItem$_init_child INLINECALLDICT
+  }>
+  $EventNftCollection$_fun_mint PROCREF:<{
+    62742 PUSHINT
+    s10 PUSH
+    -1 GTINT
+    THROWANYIFNOT
+    s9 PUSH
+    s0 s7 XCHG
+    s6 s9 XCHG
+    s5 s8 XCHG
+    s0 s4 XCHG
+    s3 s9 XCHG
+    s8 s0 s10 XCHG3
+    $EventNftCollection$_fun_getTicketNftItemInit INLINECALLDICT
+    2DUP
+    $global_contractAddress INLINECALLDICT
+    FALSE
+    2 PUSHINT
+    0 PUSHINT
+    DUP
+    $global_emptySlice INLINECALLDICT
+    s2 s4 XCHG
+    s3 16 s() XCHG
+    s11 PUSH
+    s0 s3 XCHG
+    s0 18 s() XCHG
+    -ROT
+    $Transfer$_constructor_query_id_new_owner_response_destination_custom_payload_forward_amount_forward_payload INLINECALLDICT
+    $Transfer$_store_cell INLINECALLDICT
+    s1 s6 XCHG
+    s5 s11 XCHG
+    s4 s13 XCHG
+    s3 s12 XCHG
+    s12 s2 XCHG2
+    $SendParameters$_constructor_to_value_bounce_mode_body_code_data INLINECALLDICT
+    $global_send INLINECALLDICT
+    DROP
+    s0 s3 XCHG
+    INC
+    s5 s4 s6 XCHG3
+  }>
+  $EventNftCollection$_fun_msgValue PROCREF:<{
+        BALANCE FIRST
+    OVER
+    SUB
+    20000000 PUSHINT
+    TUCK
+        MIN
+    SUB
+    20000000 PUSHINT
+    ADD
+    SUB
+  }>
+  $CollectionData$_constructor_next_item_index_collection_content_owner_address PROCINLINE:<{
+  }>
+  $EventNftCollection$_fun_get_collection_data PROCREF:<{
+    OVER
+    __tact_not_null INLINECALLDICT
+    s4 PUSH
+    __tact_not_null INLINECALLDICT
+    s8 PUSH
+    -ROT
+    $CollectionData$_constructor_next_item_index_collection_content_owner_address INLINECALLDICT
+  }>
+  $EventNftCollection$_fun_get_nft_address_by_index PROCREF:<{
+    $EventNftCollection$_fun_getTicketNftItemInit INLINECALLDICT
+    $global_contractAddress INLINECALLDICT
+  }>
+  $EventNftCollection$_fun_get_nft_content PROCREF:<{
+    NIP
+    __tact_string_builder_start_string INLINECALLDICT
+    SWAP
+    $Cell$_fun_asSlice INLINECALLDICT
+    __tact_string_builder_append INLINECALLDICT
+    __tact_string_builder_end INLINECALLDICT
+  }>
+  $EventNftCollection$_fun_royalty_params PROCREF:<{
+    DUP
+    $RoyaltyParams$_not_null INLINECALLDICT
+  }>
+  $EventNftCollection$_fun_mint_fee PROCREF:<{
+    s2 PUSH
+    __tact_not_null INLINECALLDICT
+    20000000 PUSHINT
+    ADD
+    60000000 PUSHINT
+    ADD
+  }>
+  $RoyaltyParams$_constructor_numerator_denominator_destination PROCINLINE:<{
+  }>
+  $SendParameters$_constructor_to_value_mode_body PROCINLINE:<{
+    TRUE
+    4 -ROLL
+    PUSHNULL
+    PUSHNULL
+  }>
+  $SendParameters$_constructor_to_value_bounce_mode_body PROCINLINE:<{
+    s2 s4 XCHG
+    s2 s3 XCHG
+    PUSHNULL
+    PUSHNULL
+  }>
+  $LogEventMintRecord$_constructor_minter_item_id_generate_number PROCINLINE:<{
+  }>
+  $SendParameters$_constructor_to_value_mode_bounce_body PROCINLINE:<{
+    s1 s4 XCHG
+    s3 s3 s0 XCHG3
+    PUSHNULL
+    PUSHNULL
+  }>
+  $ReportRoyaltyParams$_constructor_query_id_numerator_denominator_destination PROCINLINE:<{
+  }>
+  $EventNftCollection$_internal_binary_CreateEventNftCollection PROCINLINE:<{
+    s6 POP
+    s6 POP
+    s6 POP
+    s6 POP
+    s7 POP
+    24717 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s7 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+    s2 s2 s5 XC2PU
+    $RoyaltyParams$_constructor_numerator_denominator_destination INLINECALLDICT
+    $RoyaltyParams$_as_optional INLINECALLDICT
+    __tact_context_get INLINECALLDICT
+    DROP
+    s2 POP
+    s7 s8 XCHG
+    s3 s6 XCHG
+    s3 s5 XCHG
+    s0 s8 XCHG
+    4 -ROLL
+    $EventNftCollection$_fun_msgValue INLINECALLDICT
+    1 PUSHINT
+        NEWC
+        ENDC
+    s3 s10 XCHG
+    $SendParameters$_constructor_to_value_mode_body INLINECALLDICT
+    $global_send INLINECALLDICT
+    DROP
+    6 ROLL
+  }>
+  $EventNftCollection$_internal_binary_SetTicketPrice PROCINLINE:<{
+    s3 POP
+    18909 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s5 s(-1) PUXC
+    __tact_slice_eq_bits_nullable_one INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $EventNftCollection$_internal_binary_Mint PROCINLINE:<{
+    __tact_context_get INLINECALLDICT
+    s1 s3 XCHG
+    3 BLKDROP
+        BALANCE FIRST
+    OVER
+    SUB
+    20000000 PUSHINT
+    TUCK
+        MIN
+    SUB
+    20000000 PUSHINT
+    ADD
+    SUB
+    s5 PUSH
+    __tact_not_null INLINECALLDICT
+    DUP
+    0 GTINT
+    IF:<{
+      2683 PUSHINT
+      s2 s1 PUSH2
+      GEQ
+      THROWANYIFNOT
+      s7 PUSH
+      __tact_not_null INLINECALLDICT
+      TRUE
+      1 PUSHINT
+          NEWC
+          ENDC
+      s4 PUSH
+      3 -ROLL
+      $SendParameters$_constructor_to_value_bounce_mode_body INLINECALLDICT
+      $global_send INLINECALLDICT
+      DROP
+      SUB
+    }>ELSE<{
+      DROP
+    }>
+    s4 PUSH
+    __tact_not_null INLINECALLDICT
+    s2 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      DROP
+      SWAP
+      __tact_not_null INLINECALLDICT
+      SWAP
+    }>ELSE<{
+      s2 POP
+    }>
+    SWAP
+    $EventNftCollection$_fun_mint INLINECALLDICT
+    __tact_context_get_sender INLINECALLDICT
+        RANDU256
+    s8 s(-1) PUXC
+    $LogEventMintRecord$_constructor_minter_item_id_generate_number INLINECALLDICT
+    $LogEventMintRecord$_store_cell INLINECALLDICT
+    $global_emit INLINECALLDICT
+  }>
+  $EventNftCollection$_internal_binary_GetRoyaltyParams PROCINLINE:<{
+    __tact_context_get INLINECALLDICT
+    s2 s3 XCHG
+    3 BLKDROP
+    0 PUSHINT
+    64 PUSHINT
+    FALSE
+    s5 PUSH
+    $RoyaltyParams$_not_null INLINECALLDICT
+    $RoyaltyParams$_get_numerator INLINECALLDICT
+    s6 PUSH
+    $RoyaltyParams$_not_null INLINECALLDICT
+    $RoyaltyParams$_get_denominator INLINECALLDICT
+    s11 PUSH
+    s3 s7 XCHG
+    $ReportRoyaltyParams$_constructor_query_id_numerator_denominator_destination INLINECALLDICT
+    $ReportRoyaltyParams$_store_cell INLINECALLDICT
+    s3 s4 XCHG
+    s1 s3 s0 XCHG3
+    $SendParameters$_constructor_to_value_mode_bounce_body INLINECALLDICT
+    $global_send INLINECALLDICT
+    DROP
+  }>
+  %get_collection_data PROC:<{
+    $EventNftCollection$_contract_load INLINECALLDICT
+    $EventNftCollection$_fun_get_collection_data INLINECALLDICT
+    7 3 BLKDROP2
+    $CollectionData$_to_external INLINECALLDICT
+  }>
+  %get_nft_address_by_index PROC:<{
+    $EventNftCollection$_contract_load INLINECALLDICT
+    7 ROLL
+    $EventNftCollection$_fun_get_nft_address_by_index INLINECALLDICT
+    7 1 BLKDROP2
+  }>
+  %getTicketNftItemInit PROC:<{
+    $EventNftCollection$_contract_load INLINECALLDICT
+    7 ROLL
+    $EventNftCollection$_fun_getTicketNftItemInit INLINECALLDICT
+    7 2 BLKDROP2
+    $StateInit$_to_external INLINECALLDICT
+  }>
+  %get_nft_content PROC:<{
+    $EventNftCollection$_contract_load INLINECALLDICT
+    2 7 BLKSWAP
+    $EventNftCollection$_fun_get_nft_content INLINECALLDICT
+    7 1 BLKDROP2
+  }>
+  %royalty_params PROC:<{
+    $EventNftCollection$_contract_load INLINECALLDICT
+    $EventNftCollection$_fun_royalty_params INLINECALLDICT
+    7 3 BLKDROP2
+    $RoyaltyParams$_to_external INLINECALLDICT
+  }>
+  %mint_fee PROC:<{
+    $EventNftCollection$_contract_load INLINECALLDICT
+    $EventNftCollection$_fun_mint_fee INLINECALLDICT
+    7 1 BLKDROP2
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $EventNftCollection$_contract_router_internal PROCREF:<{
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    DUP
+    3353008081 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $CreateEventNftCollection$_load INLINECALLDICT
+      1 6 BLKDROP2
+      $EventNftCollection$_internal_binary_CreateEventNftCollection INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    1580888975 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $SetTicketPrice$_load INLINECALLDICT
+      NIP
+      $EventNftCollection$_internal_binary_SetTicketPrice INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    3118798242 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $Mint$_load INLINECALLDICT
+      1 2 BLKDROP2
+      $EventNftCollection$_internal_binary_Mint INLINECALLDICT
+      TRUE
+    }>
+    1765620048 PUSHINT
+    EQUAL
+    IFJMP:<{
+      $GetRoyaltyParams$_load INLINECALLDICT
+      NIP
+      $EventNftCollection$_internal_binary_GetRoyaltyParams INLINECALLDICT
+      TRUE
+    }>
+    DROP
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $EventNftCollection$_contract_load INLINECALLDICT
+    2 7 BLKSWAP
+    $EventNftCollection$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $EventNftCollection$_contract_store INLINECALLDICT
+  }>
+}END>c

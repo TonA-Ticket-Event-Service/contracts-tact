@@ -1,0 +1,311 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+(cell, cell) $StateInit$_to_external(((cell, cell)) v) inline {
+    var (v'code, v'data) = v; 
+    return (v'code, v'data);
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice $to, int $value, int $bounce, int $mode, cell $body, cell $code, cell $data) inline {
+    return ($bounce, $to, $value, $mode, $body, $code, $data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_body(slice $to, int $value, int $mode, cell $body) inline {
+    return (true, $to, $value, $mode, $body, null(), null());
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body(slice $to, int $value, int $bounce, int $mode, cell $body) inline {
+    return ($bounce, $to, $value, $mode, $body, null(), null());
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_bounce_body(slice $to, int $value, int $mode, int $bounce, cell $body) inline {
+    return ($bounce, $to, $value, $mode, $body, null(), null());
+}
+
+;;
+;; Type: CreateEventNftCollection
+;; Header: 0xc7dad7d1
+;; TLB: create_event_nft_collection#c7dad7d1 event_id:uint64 organizer_address:address collection_content:^cell ticket_price:coins royalty_numerator:uint16 royalty_denominator:uint16 = CreateEventNftCollection
+;;
+
+(slice, ((int, slice, cell, int, int, int))) $CreateEventNftCollection$_load(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 3353008081);
+    var v'event_id = sc_0~load_uint(64);
+    var v'organizer_address = sc_0~__tact_load_address();
+    var v'collection_content = sc_0~load_ref();
+    var v'ticket_price = sc_0~load_coins();
+    var v'royalty_numerator = sc_0~load_uint(16);
+    var v'royalty_denominator = sc_0~load_uint(16);
+    return (sc_0, (v'event_id, v'organizer_address, v'collection_content, v'ticket_price, v'royalty_numerator, v'royalty_denominator));
+}
+
+;;
+;; Type: SetTicketPrice
+;; Header: 0x5e3a738f
+;; TLB: set_ticket_price#5e3a738f ticket_price:coins = SetTicketPrice
+;;
+
+(slice, ((int))) $SetTicketPrice$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1580888975);
+    var v'ticket_price = sc_0~load_coins();
+    return (sc_0, (v'ticket_price));
+}
+
+;;
+;; Type: Mint
+;; Header: 0xb9e515a2
+;; TLB: mint#b9e515a2 to:address individual_content:Maybe ^cell = Mint
+;;
+
+(slice, ((slice, cell))) $Mint$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3118798242);
+    var v'to = sc_0~__tact_load_address();
+    var v'individual_content = sc_0~load_int(1) ? sc_0~load_ref() : null();
+    return (sc_0, (v'to, v'individual_content));
+}
+
+;;
+;; Type: LogEventMintRecord
+;; Header: 0xa3877d65
+;; TLB: log_event_mint_record#a3877d65 minter:address item_id:int257 generate_number:int257 = LogEventMintRecord
+;;
+
+builder $LogEventMintRecord$_store(builder build_0, (slice, int, int) v) inline {
+    var (v'minter, v'item_id, v'generate_number) = v;
+    build_0 = store_uint(build_0, 2743565669, 32);
+    build_0 = __tact_store_address(build_0, v'minter);
+    build_0 = build_0.store_int(v'item_id, 257);
+    build_0 = build_0.store_int(v'generate_number, 257);
+    return build_0;
+}
+
+cell $LogEventMintRecord$_store_cell((slice, int, int) v) inline {
+    return $LogEventMintRecord$_store(begin_cell(), v).end_cell();
+}
+
+((slice, int, int)) $LogEventMintRecord$_constructor_minter_item_id_generate_number(slice $minter, int $item_id, int $generate_number) inline {
+    return ($minter, $item_id, $generate_number);
+}
+
+;;
+;; Type: GetRoyaltyParams
+;; Header: 0x693d3950
+;; TLB: get_royalty_params#693d3950 query_id:uint64 = GetRoyaltyParams
+;;
+
+(slice, ((int))) $GetRoyaltyParams$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1765620048);
+    var v'query_id = sc_0~load_uint(64);
+    return (sc_0, (v'query_id));
+}
+
+;;
+;; Type: ReportRoyaltyParams
+;; Header: 0xa8cb00ad
+;; TLB: report_royalty_params#a8cb00ad query_id:uint64 numerator:uint16 denominator:uint16 destination:address = ReportRoyaltyParams
+;;
+
+builder $ReportRoyaltyParams$_store(builder build_0, (int, int, int, slice) v) inline {
+    var (v'query_id, v'numerator, v'denominator, v'destination) = v;
+    build_0 = store_uint(build_0, 2831876269, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = build_0.store_uint(v'numerator, 16);
+    build_0 = build_0.store_uint(v'denominator, 16);
+    build_0 = __tact_store_address(build_0, v'destination);
+    return build_0;
+}
+
+cell $ReportRoyaltyParams$_store_cell((int, int, int, slice) v) inline {
+    return $ReportRoyaltyParams$_store(begin_cell(), v).end_cell();
+}
+
+((int, int, int, slice)) $ReportRoyaltyParams$_constructor_query_id_numerator_denominator_destination(int $query_id, int $numerator, int $denominator, slice $destination) inline {
+    return ($query_id, $numerator, $denominator, $destination);
+}
+
+;;
+;; Type: CollectionData
+;; TLB: _ next_item_index:int257 collection_content:^cell owner_address:address = CollectionData
+;;
+
+(int, cell, slice) $CollectionData$_to_external(((int, cell, slice)) v) inline {
+    var (v'next_item_index, v'collection_content, v'owner_address) = v; 
+    return (v'next_item_index, v'collection_content, v'owner_address);
+}
+
+((int, cell, slice)) $CollectionData$_constructor_next_item_index_collection_content_owner_address(int $next_item_index, cell $collection_content, slice $owner_address) inline {
+    return ($next_item_index, $collection_content, $owner_address);
+}
+
+;;
+;; Type: RoyaltyParams
+;; TLB: _ numerator:int257 denominator:int257 destination:address = RoyaltyParams
+;;
+
+builder $RoyaltyParams$_store(builder build_0, (int, int, slice) v) inline {
+    var (v'numerator, v'denominator, v'destination) = v;
+    build_0 = build_0.store_int(v'numerator, 257);
+    build_0 = build_0.store_int(v'denominator, 257);
+    build_0 = __tact_store_address(build_0, v'destination);
+    return build_0;
+}
+
+(slice, ((int, int, slice))) $RoyaltyParams$_load(slice sc_0) inline {
+    var v'numerator = sc_0~load_int(257);
+    var v'denominator = sc_0~load_int(257);
+    var v'destination = sc_0~__tact_load_address();
+    return (sc_0, (v'numerator, v'denominator, v'destination));
+}
+
+((int, int, slice)) $RoyaltyParams$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (int vvv'numerator, int vvv'denominator, slice vvv'destination) = __tact_tuple_destroy_3(v);
+    return (vvv'numerator, vvv'denominator, vvv'destination);
+}
+
+tuple $RoyaltyParams$_as_optional((int, int, slice) v) inline {
+    var (v'numerator, v'denominator, v'destination) = v;
+    return __tact_tuple_create_3(v'numerator, v'denominator, v'destination);
+}
+
+_ $RoyaltyParams$_get_numerator((int, int, slice) v) inline {
+    var (v'numerator, v'denominator, v'destination) = v;
+    return v'numerator;
+}
+
+_ $RoyaltyParams$_get_denominator((int, int, slice) v) inline {
+    var (v'numerator, v'denominator, v'destination) = v;
+    return v'denominator;
+}
+
+(int, int, slice) $RoyaltyParams$_to_external(((int, int, slice)) v) inline {
+    var (v'numerator, v'denominator, v'destination) = v; 
+    return (v'numerator, v'denominator, v'destination);
+}
+
+((int, int, slice)) $RoyaltyParams$_constructor_numerator_denominator_destination(int $numerator, int $denominator, slice $destination) inline {
+    return ($numerator, $denominator, $destination);
+}
+
+;;
+;; Type: Transfer
+;; Header: 0x5fcc3d14
+;; TLB: transfer#5fcc3d14 query_id:uint64 new_owner:address response_destination:Maybe address custom_payload:Maybe ^cell forward_amount:coins forward_payload:remainder<slice> = Transfer
+;;
+
+builder $Transfer$_store(builder build_0, (int, slice, slice, cell, int, slice) v) inline_ref {
+    var (v'query_id, v'new_owner, v'response_destination, v'custom_payload, v'forward_amount, v'forward_payload) = v;
+    build_0 = store_uint(build_0, 1607220500, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = __tact_store_address(build_0, v'new_owner);
+    build_0 = __tact_store_address_opt(build_0, v'response_destination);
+    build_0 = ~ null?(v'custom_payload) ? build_0.store_int(true, 1).store_ref(v'custom_payload) : build_0.store_int(false, 1);
+    build_0 = build_0.store_coins(v'forward_amount);
+    build_0 = build_0.store_slice(v'forward_payload);
+    return build_0;
+}
+
+cell $Transfer$_store_cell((int, slice, slice, cell, int, slice) v) inline {
+    return $Transfer$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice, slice, cell, int, slice)) $Transfer$_constructor_query_id_new_owner_response_destination_custom_payload_forward_amount_forward_payload(int $query_id, slice $new_owner, slice $response_destination, cell $custom_payload, int $forward_amount, slice $forward_payload) inline {
+    return ($query_id, $new_owner, $response_destination, $custom_payload, $forward_amount, $forward_payload);
+}
+
+;;
+;; Type: EventNftCollection
+;;
+
+builder $EventNftCollection$_store(builder build_0, (int, int, slice, slice, int, cell, tuple) v) inline {
+    var (v'next_item_index, v'event_id, v'tona_address, v'organizer_address, v'ticket_price, v'collection_content, v'royalty_params) = v;
+    build_0 = build_0.store_uint(v'next_item_index, 32);
+    build_0 = build_0.store_uint(v'event_id, 256);
+    build_0 = __tact_store_address(build_0, v'tona_address);
+    build_0 = __tact_store_address_opt(build_0, v'organizer_address);
+    var build_1 = begin_cell();
+    build_1 = ~ null?(v'ticket_price) ? build_1.store_int(true, 1).store_int(v'ticket_price, 257) : build_1.store_int(false, 1);
+    build_1 = ~ null?(v'collection_content) ? build_1.store_int(true, 1).store_ref(v'collection_content) : build_1.store_int(false, 1);
+    var build_2 = begin_cell();
+    build_2 = ~ null?(v'royalty_params) ? build_2.store_int(true, 1).$RoyaltyParams$_store($RoyaltyParams$_not_null(v'royalty_params)) : build_2.store_int(false, 1);
+    build_1 = store_ref(build_1, build_2.end_cell());
+    build_0 = store_ref(build_0, build_1.end_cell());
+    return build_0;
+}
+
+(slice, ((int, int, slice, slice, int, cell, tuple))) $EventNftCollection$_load(slice sc_0) inline {
+    var v'next_item_index = sc_0~load_uint(32);
+    var v'event_id = sc_0~load_uint(256);
+    var v'tona_address = sc_0~__tact_load_address();
+    var v'organizer_address = sc_0~__tact_load_address_opt();
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'ticket_price = sc_1~load_int(1) ? sc_1~load_int(257) : null();
+    var v'collection_content = sc_1~load_int(1) ? sc_1~load_ref() : null();
+    slice sc_2 = sc_1~load_ref().begin_parse();
+    var v'royalty_params = sc_2~load_int(1) ? $RoyaltyParams$_as_optional(sc_2~$RoyaltyParams$_load()) : null();
+    return (sc_0, (v'next_item_index, v'event_id, v'tona_address, v'organizer_address, v'ticket_price, v'collection_content, v'royalty_params));
+}
+
+(slice, ((int, slice))) $EventNftCollection$init$_load(slice sc_0) inline {
+    var v'event_id = sc_0~load_int(257);
+    var v'tona_address = sc_0~__tact_load_address();
+    return (sc_0, (v'event_id, v'tona_address));
+}
+
+(int, int, slice, slice, int, cell, tuple) $EventNftCollection$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$EventNftCollection$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (int $event_id, slice $tona_address) = $sc~$EventNftCollection$init$_load();
+        $sc.end_parse();
+        return $EventNftCollection$_contract_init($event_id, $tona_address);
+    }
+}
+
+() $EventNftCollection$_contract_store((int, int, slice, slice, int, cell, tuple) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $EventNftCollection$_store(b, v);
+    set_data(b.end_cell());
+}
+
+;;
+;; Type: TicketNftItem
+;;
+
+builder $TicketNftItem$init$_store(builder build_0, (slice, int) v) inline {
+    var (v'collection_address, v'item_index) = v;
+    build_0 = __tact_store_address(build_0, v'collection_address);
+    build_0 = build_0.store_int(v'item_index, 257);
+    return build_0;
+}
+
+(cell, cell) $TicketNftItem$_init_child(cell sys', slice $collection_address, int $item_index) inline_ref {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: TicketNftItem
+    cell mine = __tact_dict_get_code(source, 36176);
+    contracts = __tact_dict_set_code(contracts, 36176, mine);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = $TicketNftItem$init$_store(b, ($collection_address, $item_index));
+    return (mine, b.end_cell());
+}
