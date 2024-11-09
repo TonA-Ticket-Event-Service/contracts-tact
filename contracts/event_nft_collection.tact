@@ -55,7 +55,7 @@ contract EventNftCollection {
             to: ctx.sender,
             value: msgValue,
             mode: SendPayGasSeparately,
-            body: Excesses { query_id: 0 }.toCell()
+            body: beginCell().endCell()
         });
     }
 
@@ -142,13 +142,9 @@ contract EventNftCollection {
 
     // ------------------ Get Function  ------------------ //
     get fun get_collection_data(): CollectionData {     
-        let b: StringBuilder = beginString();
-        let collectionDataString: String = self.collection_content!!.asSlice().asString();
-        b.append(collectionDataString);
-        b.append("meta.json"); // You can changed this your self.
         return CollectionData{
             next_item_index: self.next_item_index, 
-            collection_content: b.toCell(), 
+            collection_content: self.collection_content!!,
             owner_address: self.organizer_address!!
         };
     }

@@ -19,21 +19,24 @@ message TransferOwnership {
 }
 
 struct TonAState{
-    total_events: Int as uint64;
+    tona_event_tickets_type: Int as uint64;
     tona_owner_address: Address;
+    total_events: Int as uint64;
     event_creation_fee: Int as coins;
     royalty_numerator: Int as uint16;
     royalty_denominator: Int as uint16;
 }
 
 contract TonA with Deployable {
-    total_events: Int as uint64;
+    tona_event_tickets_type: Int as uint64;
     tona_owner_address: Address;
+    total_events: Int as uint64;
     event_creation_fee: Int as coins;
     royalty_numerator: Int as uint16;
     royalty_denominator: Int as uint16;
 
-    init(tona_owner_address: Address) {
+    init(tona_event_tickets_type: Int, tona_owner_address: Address) {
+        self.tona_event_tickets_type = tona_event_tickets_type;
         self.total_events = 0;
         self.tona_owner_address = tona_owner_address;
         self.event_creation_fee = 1000000; // 0.001 TON
@@ -109,8 +112,9 @@ contract TonA with Deployable {
 
     get fun state(): TonAState {
         return TonAState{
-            total_events: self.total_events,
+            tona_event_tickets_type: self.tona_event_tickets_type,
             tona_owner_address: self.tona_owner_address,
+            total_events: self.total_events,
             event_creation_fee: self.event_creation_fee,
             royalty_numerator: self.royalty_numerator,
             royalty_denominator: self.royalty_denominator
