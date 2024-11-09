@@ -6,8 +6,8 @@
         "build": "blueprint build",
         "test": "jest --verbose",
         "deploy": "ts-node scripts/manual/1_deployTonA.ts",
-        "create": "ts-node scripts/manual/2_createEvent.ts",
-        "mint": "ts-node scripts/manual/3_mintEventTicket.ts"
+        "createEvent": "ts-node scripts/manual/2_createEvent.ts",
+        "mintTicket": "ts-node scripts/manual/3_mintEventTicket.ts"
     },
     "devDependencies": {
         "@ton/blueprint": "^0.25.0",
